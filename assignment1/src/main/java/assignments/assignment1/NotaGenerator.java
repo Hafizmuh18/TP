@@ -16,6 +16,9 @@ public class NotaGenerator {
         String inpNomor = "";
         String id = "";
         while(working){
+            /*Loop akan terus dijalanin  selama working == true
+             * working akan != true jika pilihan yang dimasukan 0
+             */
             printMenu();
             print("Pilihan : ");
             String pilihan = inp.nextLine();
@@ -26,9 +29,15 @@ public class NotaGenerator {
                 println("Masukan nomor handphone Anda :");
                 boolean nomorBenar = true;
                 while(nomorBenar){
+                    /*Memastikan bahwa input nomor bukan angka
+                     * maupun bukan bilangan negatif
+                     */
                     try{
                         inpNomor = inp.nextLine();
                         Long.parseLong(inpNomor);
+                        if(Long.parseLong(inpNomor) < 0){
+                            Integer.parseInt("a");
+                        }
                         nomorBenar = false;
                     }
                     catch(Exception e){
@@ -50,8 +59,14 @@ public class NotaGenerator {
                 boolean nomorBenar = true;
                 while(nomorBenar){
                     try{
+                     /*Memastikan bahwa input nomor bukan angka
+                     * maupun bukan bilangan negatif
+                     */
                         inpNomor = inp.nextLine();
                         Long.parseLong(inpNomor);
+                        if(Long.parseLong(inpNomor) < 0){
+                            Integer.parseInt("a");
+                        }
                         nomorBenar = false;
                     }
                     catch(Exception e){
@@ -60,6 +75,7 @@ public class NotaGenerator {
                 }
                 id = generateId(inputNama, inpNomor);
                 while(benarTanggal){
+                    /*Memastikan input tanggal berniali benar */
                     println("Masukan tanggal terima : ");
                     tanggalTerima = inp.nextLine();
                     try{
@@ -72,6 +88,7 @@ public class NotaGenerator {
                 }
                 boolean pilihPaket = true;
                 while(pilihPaket){
+                    /*Memastikan input paket laundry benar */
                     println("Masukan paket laundry :");
                     paket = inp.nextLine();
                     if(paket.equalsIgnoreCase("express")){
@@ -89,6 +106,9 @@ public class NotaGenerator {
                 println("Masukan berat cucian anda [Kg]:");
                 boolean nomorBerat = true;
                 while(nomorBerat){
+                    /*Memastikan bahwa berat itu bilangan bulat positif, jadi tidak
+                     * berupa huruf dan bilangan negatif
+                     */
                     try{
                         strBerat = inp.nextLine();
                         berat = Integer.parseInt(strBerat);
@@ -137,28 +157,32 @@ public class NotaGenerator {
         System.out.println("+-------------------------------+");
     }
 
-    /**
+    public static String generateId(String inpNama, String nomorHP){
+        /**
      * Method untuk membuat ID dari nama dan nomor handphone.
      * Parameter dan return type dari method ini tidak boleh diganti agar tidak mengganggu testing
      *
      * @return String ID anggota dengan format [NAMADEPAN]-[nomorHP]-[2digitChecksum]
      */
-    public static String generateId(String inpNama, String nomorHP){
         String[] listNama = inpNama.split(" ");
         String nama = listNama[0].toUpperCase();
         int checkSum = 0;
-        String[] listChar = nama.split("");
-        String[] listNumber = (nomorHP).split("");
+        String[] listChar = nama.split(""); //Membuat array dari nama
+        String[] listNumber = (nomorHP).split(""); //Membuat array dari no hp
         for(String letter : listChar){
+            /*Melakukan loop untuk setiap character di array listChar*/
             boolean huruf = true;
             if(huruf){
                 char character = letter.charAt(0);
                 int asciiChar = character;
                 if(asciiChar >= 65 && asciiChar <= 90){
+                    /*Jika char dari nama adalah hururf */
                     checkSum += asciiChar - 64;
                 }else if(48 >= asciiChar && 57 <= asciiChar){
+                    /*Jika char dari nama adalah angka */
                     checkSum += asciiChar-48;
                 }else{
+                    /*Jika char dari nama selain huruf dan angka */
                     checkSum += 7;
                 }
             }
@@ -170,7 +194,8 @@ public class NotaGenerator {
         checkSum+=7;
         String twoDigit = "";
         String strCheckSum = Integer.toString(checkSum);
-        if(strCheckSum.length() <2){
+        if(strCheckSum.length() <2){ 
+            /*Jika sum dari semua nama dan no hpnya hanya 1 maka ditambakan 0 didepannya, ex: sumnnya 5 maka digitnya 05 */
             twoDigit = "0"+strCheckSum;
         }else if(strCheckSum.length() >2){
             twoDigit = strCheckSum.substring(strCheckSum.length() - 2);
@@ -181,7 +206,10 @@ public class NotaGenerator {
         return id;
     }
 
-    /**
+    
+
+    public static String generateNota(String id, String paket, int berat, String tanggalTerima){
+        /**
      *
      * Method untuk membuat Nota.
      * Parameter dan return type dari method ini tidak boleh diganti agar tidak mengganggu testing.
@@ -194,8 +222,6 @@ public class NotaGenerator {
      *         <p>Tanggal Terima  : [tanggalTerima]
      *         <p>Tanggal Selesai : [tanggalTerima + LamaHariPaket]
      */
-
-    public static String generateNota(String id, String paket, int berat, String tanggalTerima){
         int harga = 0;
         int hari = 0;
         if(paket.equalsIgnoreCase("express")){
