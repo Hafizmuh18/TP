@@ -122,7 +122,8 @@ public class NotaGenerator {
                         println("Harap masukkan berat cucian Anda dalam bentuk bilangan positif.");
                     }
                 }
-                String nota = generateNota(id, paket, berat, tanggalTerima);
+                boolean a = false;
+                String nota = generateNota(id, paket, berat, tanggalTerima, a);
                 println("Nota Laudry");
                 println(nota);
             }else if(pilihan.equals("0")){
@@ -149,7 +150,7 @@ public class NotaGenerator {
     /**
      * Method untuk menampilkan paket.
      */
-    private static void showPaket() {
+    public static void showPaket() {
         System.out.println("+-------------Paket-------------+");
         System.out.println("| Express | 1 Hari | 12000 / Kg |");
         System.out.println("| Fast    | 2 Hari | 10000 / Kg |");
@@ -208,7 +209,7 @@ public class NotaGenerator {
 
     
 
-    public static String generateNota(String id, String paket, int berat, String tanggalTerima){
+    public static String generateNota(String id, String paket, int berat, String tanggalTerima, boolean diskon){
         /**
      *
      * Method untuk membuat Nota.
@@ -224,6 +225,7 @@ public class NotaGenerator {
      */
         int harga = 0;
         int hari = 0;
+        String nota = "";
         if(paket.equalsIgnoreCase("express")){
             harga = 12000;
             hari = 1;
@@ -240,7 +242,12 @@ public class NotaGenerator {
         }
         int totHarga = harga*berat;
         String tanggalSelesai = getTanggalSelesai(tanggalTerima, hari);
-        String nota = ("ID    : "+id+"\nPaket : "+paket+"\nHarga :"+"\n"+berat+" kg x "+harga+" = "+totHarga+"\nTanggal Terima  : "+tanggalTerima+"\nTanggal Selesai : "+tanggalSelesai);
+        if(diskon){
+            int diskonHarga = totHarga - (totHarga*30/100);
+            nota = ("ID    : "+id+"\nPaket : "+paket+"\nHarga :"+"\n"+berat+" kg x "+harga+" = "+totHarga+" = "+diskonHarga+"\nTanggal Terima  : "+tanggalTerima+"\nTanggal Selesai : "+tanggalSelesai);
+        }else{
+            nota = ("ID    : "+id+"\nPaket : "+paket+"\nHarga :"+"\n"+berat+" kg x "+harga+" = "+totHarga+"\nTanggal Terima  : "+tanggalTerima+"\nTanggal Selesai : "+tanggalSelesai);
+        }
         return nota;
     }
 
