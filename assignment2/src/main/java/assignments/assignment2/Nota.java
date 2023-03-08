@@ -58,13 +58,15 @@ public class Nota {
 
     // TODO: tambahkan methods yang diperlukan untuk class ini
     public boolean finishChecker(){
-        if(this.sisaHariPengerjaan == 0){
-            isReady = true;
-            return true;
-        }else{
+        if(!isReady){
             this.sisaHariPengerjaan--;
+            if(this.sisaHariPengerjaan == 0){
+                isReady = true;
+                return isReady;
+            }
+            return false;
         }
-        return false;
+        return true;
     }
     public String getAvailable(){
         String available = "";
@@ -74,6 +76,9 @@ public class Nota {
             available = "Belum bisa diambil :(";
         }
         return available;
+    }
+    public boolean getIsReady(){
+        return isReady;
     }
 
 }

@@ -243,8 +243,8 @@ public class NotaGenerator {
         int totHarga = harga*berat;
         String tanggalSelesai = getTanggalSelesai(tanggalTerima, hari);
         if(diskon){
-            int diskonHarga = totHarga - (totHarga*30/100);
-            nota = ("ID    : "+id+"\nPaket : "+paket+"\nHarga :"+"\n"+berat+" kg x "+harga+" = "+totHarga+" = "+diskonHarga+"\nTanggal Terima  : "+tanggalTerima+"\nTanggal Selesai : "+tanggalSelesai);
+            int diskonHarga = totHarga - (totHarga*50/100);
+            nota = ("ID    : "+id+"\nPaket : "+paket+"\nHarga :"+"\n"+berat+" kg x "+harga+" = "+totHarga+" = "+diskonHarga+" (Discount member 50%!!!)"+"\nTanggal Terima  : "+tanggalTerima+"\nTanggal Selesai : "+tanggalSelesai);
         }else{
             nota = ("ID    : "+id+"\nPaket : "+paket+"\nHarga :"+"\n"+berat+" kg x "+harga+" = "+totHarga+"\nTanggal Terima  : "+tanggalTerima+"\nTanggal Selesai : "+tanggalSelesai);
         }

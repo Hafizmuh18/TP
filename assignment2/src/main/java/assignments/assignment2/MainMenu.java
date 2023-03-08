@@ -62,7 +62,7 @@ public class MainMenu {
                 noHp = inp.nextLine();
                 String[] arrayNoHp = noHp.split("");
                 for(String character:arrayNoHp){
-                    int a = Integer.parseInt(character);
+                    Integer.parseInt(character);
                 }
                 break;
             }catch (Exception e){
@@ -149,7 +149,7 @@ public class MainMenu {
                 strIdNota = inp.nextLine();
                 String[] arrayId = strIdNota.split("");
                 for(String character:arrayId){
-                    int a = Integer.parseInt(character);
+                    Integer.parseInt(character);
                 }
                 idNota = Integer.parseInt(strIdNota);
                 break;
@@ -160,7 +160,7 @@ public class MainMenu {
         for(Nota nota:notaList){
             int checkNota = nota.getNotaNumber();
             if(idNota == checkNota){
-                boolean isReady = nota.finishChecker();
+                boolean isReady = nota.getIsReady();
                 if(isReady){
                     notaList.remove(nota);
                     dictIdNota.remove(nota.getId());
