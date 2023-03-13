@@ -207,7 +207,43 @@ public class NotaGenerator {
         return id;
     }
 
-    
+    public static String generateNota(String id, String paket, int berat, String tanggalTerima){
+        /**
+     *
+     * Method untuk membuat Nota.
+     * Parameter dan return type dari method ini tidak boleh diganti agar tidak mengganggu testing.
+     *
+     * @return string nota dengan format di bawah:
+     *         <p>ID    : [id]
+     *         <p>Paket : [paket]
+     *         <p>Harga :
+     *         <p>[berat] kg x [hargaPaketPerKg] = [totalHarga]
+     *         <p>Tanggal Terima  : [tanggalTerima]
+     *         <p>Tanggal Selesai : [tanggalTerima + LamaHariPaket]
+     */
+        int harga = 0;
+        int hari = 0;
+        String nota = "";
+        if(paket.equalsIgnoreCase("express")){
+            harga = 12000;
+            hari = 1;
+        }else if(paket.equalsIgnoreCase("fast")){
+            harga = 10000;
+            hari = 2;
+        }else if(paket.equalsIgnoreCase("reguler")){
+            harga = 7000;
+            hari = 3;
+        }
+        if(berat<2){
+            berat = 2;
+            println("Cucian kurang dari 2 kg, maka cucian akan dianggap sebagai 2 kg");
+        }
+        int totHarga = harga*berat;
+        String tanggalSelesai = getTanggalSelesai(tanggalTerima, hari);
+        nota = ("ID    : "+id+"\nPaket : "+paket+"\nHarga :"+"\n"+berat+" kg x "+harga+" = "+totHarga+"\nTanggal Terima  : "+tanggalTerima+"\nTanggal Selesai : "+tanggalSelesai);
+        
+        return nota;
+    }
 
     public static String generateNota(String id, String paket, int berat, String tanggalTerima, boolean diskon){
         /**
