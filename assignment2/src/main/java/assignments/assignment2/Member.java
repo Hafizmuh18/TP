@@ -3,20 +3,19 @@ package assignments.assignment2;
 import assignments.assignment1.NotaGenerator;
 
 public class Member {
-    // TODO: tambahkan attributes yang diperlukan untuk class ini
+    //* Attribute-attribute di dalam class member */
     private String nama;
     private String noHp;
     private String id;
     private int bonusCounter;
     public Member(String nama, String noHp) {
-        // TODO: buat constructor untuk class ini
+        //* Constructor untuk class member yang mengambil 2 parameter yaitu nama dan nohp */
         this.nama = nama;
         this.noHp = noHp;
-        this.id = NotaGenerator.generateId(nama, noHp);
+        this.id = NotaGenerator.generateId(nama, noHp); //* Mengenerate id dengan menggunakan method dari TP 1 */
     }
 
-    // TODO: tambahkan methods yang diperlukan untuk class ini
-    // Getter methods
+    //* Getter methods */
     public String getNama() {
         return nama;
     }
@@ -29,7 +28,7 @@ public class Member {
     public int getBonusCounter() {
         return bonusCounter;
     }
-    // Setter methods
+    //* Setter methods */
     public void setNama(String nama) {
         this.nama = nama;
     }
@@ -42,6 +41,7 @@ public class Member {
     public void setBonusCounter(int bonusCounter) {
         this.bonusCounter = bonusCounter;
     }
+    //* Method untuk memastikan apakah member mendapatkan diskon atau tidak */
     public boolean getDiskon(){
         this.bonusCounter++;
         if(this.bonusCounter==3){

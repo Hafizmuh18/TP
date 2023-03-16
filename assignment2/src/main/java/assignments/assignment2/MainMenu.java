@@ -13,6 +13,7 @@ import assignments.assignment1.NotaGenerator;
 import static assignments.assignment1.NotaGenerator.*;
 
 public class MainMenu {
+    //* Attribute-attribute untuk class MainMenu */
     private static final Scanner inp = new Scanner(System.in);
     private static SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
     private static Calendar cal = Calendar.getInstance();
@@ -24,6 +25,7 @@ public class MainMenu {
     private static HashMap<String, Nota> dictIdNota = new HashMap<String, Nota>();
 
     public static void main(String[] args) {
+        //* Method main dalam mejalankan program */
         boolean isRunning = true;
         while (isRunning) {
             printMenu();
@@ -52,13 +54,14 @@ public class MainMenu {
     }
 
     private static void handleGenerateUser() {
-        // TODO: handle generate user
+        //* Method untuk men generate object member berdasarkan input nama dan nomor hp */
         String noHp = "";
         System.out.println("Masukan nama Anda:");
         String nama = inp.nextLine();
         System.out.println("Masukan nomor handphone Anda:");
         while(true){
             try{
+                //* Mmemastikan bahwa input yang diasukan di noHp berupa digit semua */
                 noHp = inp.nextLine();
                 String[] arrayNoHp = noHp.split("");
                 for(String character:arrayNoHp){
@@ -70,10 +73,11 @@ public class MainMenu {
             }
         }
         for(Member member:memberList){
+            //* Loop untuk memastikan member baru yang akan masuk belum ada di listMember */
             String checkId = NotaGenerator.generateId(nama, noHp);
             if(member.getId().equals(checkId)){
-                System.out.println("Member dengan nama "+member.getNama()+" dan nomor hp "+member.getNoHp()+" sudah ada!");
-                return;
+                System.out.println("Member dengan nama "+nama+" dan nomor hp "+member.getNoHp()+" sudah ada!");
+                return; //* Stop method jika member yang ingin masuk sudah ada di list */
             }
         }
         Member userMember = new Member(nama, noHp);
@@ -87,11 +91,12 @@ public class MainMenu {
     }
 
     private static void handleGenerateNota() {
-        // TODO: handle ambil cucian
+        //* Membuat object nota dengan syarat ada id member, dan object nota tersebut dimasukan ke listNota */
         String paket = "";
         System.out.println("Masukan ID member:");
         String id = inp.nextLine();
         if(dictIdMember.containsKey(id)){
+            //* Memastikan bahwa member sudah terdaftar jika ingin mengenerate nota */
             Member member = dictIdMember.get(id);
             boolean pilihPaket = true;
             while(pilihPaket){
@@ -118,21 +123,22 @@ public class MainMenu {
             notaList.add(nota);
             dictIdNota.put(id,nota);
         }else{
+            //* ID Member belum terdaftar */
             System.out.println("Member dengan ID "+id+" tidak ditemukan!");
         }
     }
 
     private static void handleListNota() {
-        // TODO: handle list semua nota pada sistem
+        //* Melakukan loop untuk setiap nota di listNota */
         int jumlahNota = notaList.size();
         System.out.println("Terdaftar "+jumlahNota+" nota dalam sistem.");
         for(Nota nota:notaList){
-            System.out.println("- ["+nota.getNotaNumber()+"] Status      	: "+nota.getAvailable());
+            System.out.println("- ["+nota.getidNota()+"] Status      	: "+nota.getAvailable());
         }
     }
 
     private static void handleListUser() {
-        // TODO: handle list semua user pada sistem
+        //* Melakukan loop untuk setiap member di listNota */
         System.out.println("Terdaftar "+jumlahMember+" member dalam sistem.");
         for(Member member:memberList){
             System.out.println("- "+member.getId()+" : "+member.getNama());
@@ -140,12 +146,13 @@ public class MainMenu {
     }
 
     private static void handleAmbilCucian() {
-        // TODO: handle ambil cucian
+        //* Mengambil cucian berdasarkan ID dari Nota */
         System.out.println("Masukan ID nota yang akan diambil: ");
         String strIdNota = "";
         int idNota = 0;
         while(true){
             try{
+                //* Memastikan ID Nota itu angka dan lebih dari 0 */
                 strIdNota = inp.nextLine();
                 String[] arrayId = strIdNota.split("");
                 for(String character:arrayId){
@@ -158,28 +165,33 @@ public class MainMenu {
             }
         }
         for(Nota nota:notaList){
-            int checkNota = nota.getNotaNumber();
+            //* Memastikan bahwa nota ada di listNota */
+            int checkNota = nota.getidNota();
             if(idNota == checkNota){
                 boolean isReady = nota.getIsReady();
                 if(isReady){
+                    //* Memastikan bahwa nota dengan ID tersebut sudah dapat diambil */
                     notaList.remove(nota);
                     dictIdNota.remove(nota.getId());
                     System.out.println("Nota dengan ID "+idNota+" berhasil diambil!");
                 }else if(!isReady){
+                    //* Jika Nota dengan ID Nota belum selesai */
                     System.out.println("Nota dengan ID "+idNota+" gagal diambil!");
                 }return;
             }
         }
+        //* Jika ID nota tidak ditemukan di dalam listNota */
         System.out.println("Nota dengan ID "+idNota+" tidak ditemukan!");
     }
 
     private static void handleNextDay() {
-        // TODO: handle ganti hari
+        //* Menaikan hari menjadi hari berikutnya */
         cal.add(Calendar.DAY_OF_MONTH,1);
         System.out.println("Dek Depe tidur hari ini... zzz...");
         for(Nota nota:notaList){
             if(nota.finishChecker()){
-                System.out.println("Laudry dengan nota ID "+nota.getNotaNumber()+" sudah dapat diambil!");
+                //* Melakukan pengecekan untuk setiap nota di list, apakah nota tersebut sudah siap diambil */
+                System.out.println("Laudry dengan nota ID "+nota.getidNota()+" sudah dapat diambil!");
             }
         }
         System.out.println("Selamat pagi dunia!\nDek Depe: It's CuciCuci Time.");
