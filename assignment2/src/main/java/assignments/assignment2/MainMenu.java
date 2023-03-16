@@ -173,15 +173,15 @@ public class MainMenu {
                     //* Memastikan bahwa nota dengan ID tersebut sudah dapat diambil */
                     notaList.remove(nota);
                     dictIdNota.remove(nota.getId());
-                    System.out.println("Nota dengan ID "+idNota+" berhasil diambil!");
+                    System.out.println("Nota dengan ID "+strIdNota+" berhasil diambil!");
                 }else if(!isReady){
                     //* Jika Nota dengan ID Nota belum selesai */
-                    System.out.println("Nota dengan ID "+idNota+" gagal diambil!");
+                    System.out.println("Nota dengan ID "+strIdNota+" gagal diambil!");
                 }return;
             }
         }
         //* Jika ID nota tidak ditemukan di dalam listNota */
-        System.out.println("Nota dengan ID "+idNota+" tidak ditemukan!");
+        System.out.println("Nota dengan ID "+strIdNota+" tidak ditemukan!");
     }
 
     private static void handleNextDay() {
