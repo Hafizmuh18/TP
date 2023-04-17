@@ -16,7 +16,7 @@ public class Member {
     }
 
     //* Getter methods */
-    public String getNama() {
+   public String getNama() {
         return nama;
     }
     public String getNoHp() {
@@ -45,7 +45,7 @@ public class Member {
     public boolean getDiskon(){
         this.bonusCounter++;
         if(this.bonusCounter==3){
-            setBonusCounter(0);
+             setBonusCounter(0);
             return true;
         }
         return false;

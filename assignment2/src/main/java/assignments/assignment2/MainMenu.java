@@ -11,6 +11,8 @@ import javax.lang.model.util.ElementScanner14;
 import assignments.assignment1.NotaGenerator;
 
 import static assignments.assignment1.NotaGenerator.*;
+import java.util.Random;
+
 
 public class MainMenu {
     //* Attribute-attribute untuk class MainMenu */
@@ -23,6 +25,7 @@ public class MainMenu {
     private static int jumlahMember = 0;
     private static HashMap<String, Member> dictIdMember = new HashMap<String,Member>();
     private static HashMap<String, Nota> dictIdNota = new HashMap<String, Nota>();
+    
 
     public static void main(String[] args) {
         //* Method main dalam mejalankan program */
