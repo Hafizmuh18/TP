@@ -1,5 +1,14 @@
 package assignments.assignment3.user.menu;
+import assignments.assignment3.nota.Nota;
+import assignments.assignment3.nota.NotaManager;
+import assignments.assignment3.nota.service.AntarService;
+import assignments.assignment3.nota.service.CuciService;
+import assignments.assignment3.nota.service.SetrikaService;
 import assignments.assignment3.user.Member;
+import java.util.ArrayList;
+import java.util.Arrays;
+import static assignments.assignment3.nota.NotaManager.cal;
+import static assignments.assignment3.nota.NotaManager.fmt;
 
 public class MemberSystem extends SystemCLI {
     /**
@@ -12,6 +21,39 @@ public class MemberSystem extends SystemCLI {
     protected boolean processChoice(int choice) {
         boolean logout = false;
         // TODO
+        if(choice == 1){
+            System.out.println("Masukan paket laundry:");
+            Nota.showPaket();
+            String paket = in.nextLine();
+            System.out.println("Masukan berat cucian anda [Kg]:");
+            String strBerat = in.nextLine();
+            int berat = Integer.parseInt(strBerat);
+            if(berat < 2){
+                System.out.println("Cucian kurang dari 2 kg, maka cucian akan dianggap sebagai 2 kg");
+                berat = 2;
+            }
+            String tanggalMasuk = fmt.format(cal.getTime());
+            Nota newNota = new Nota(loginMember, berat, paket, tanggalMasuk);
+            System.out.print("Apakah kamu ingin cucianmu disetrika oleh staff professional kami?\nHanya tambah 1000 / kg :0\n[Ketik x untuk tidak mau]: ");
+            if(!in.nextLine().equals("x")){
+                newNota.addService(new SetrikaService());
+            }
+            System.out.print("Mau diantar oleh kurir kami? Dijamin aman dan cepat sampai tujuan!\nCuma 2000 / 4kg, kemudian 500 / kg\n[Ketik x untuk tidak mau]: ");
+            if(!in.nextLine().equals("x")){
+                newNota.addService(new AntarService());
+            }
+            loginMember.addNota(newNota);
+            NotaManager.addNota(newNota);
+            System.out.println("Nota berhasil dibuat!");
+        }else if(choice == 2){
+            Nota[] listNota = loginMember.getNotaList();
+            for(Nota nota : listNota){
+                System.out.println(nota);
+                System.out.println("");
+            }
+        }else if(choice == 3){
+            logout = true;
+        }
         return logout;
     }
 
@@ -32,5 +74,8 @@ public class MemberSystem extends SystemCLI {
      */
     public void addMember(Member member) {
         // TODO
+        Member[] tempArray = Arrays.copyOf(memberList, memberList.length+1);
+        memberList = Arrays.copyOf(tempArray, tempArray.length);
+        memberList[memberList.length-1]=member;
     }
 }

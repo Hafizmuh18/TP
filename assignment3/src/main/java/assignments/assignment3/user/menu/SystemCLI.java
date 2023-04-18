@@ -1,6 +1,8 @@
 package assignments.assignment3.user.menu;
 
 import assignments.assignment3.user.Member;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import java.util.Scanner;
 
@@ -28,6 +30,7 @@ public abstract class SystemCLI {
         }
 
         System.out.println("Invalid ID or password.");
+        System.out.println("");
     };
 
     /**
@@ -41,12 +44,12 @@ public abstract class SystemCLI {
         boolean logout = false;
         while (!logout) {
             displayMenu();
-            int choice = in.nextInt();
-            in.nextLine();
+            int choice = in.nextInt();in.nextLine();
             logout = processChoice(choice);
         }
         loginMember = null;
         System.out.println("Logging out...");
+        System.out.println("");
     }
 
     /**
@@ -64,7 +67,6 @@ public abstract class SystemCLI {
             if(user.login(id, pass)){
                 return user;
             }
-            return null;
         }
         return null;
     };
@@ -106,4 +108,5 @@ public abstract class SystemCLI {
      * Displays specific menu sesuai class yang menginheritnya.
      */
     protected abstract void displaySpecificMenu();
+
 }

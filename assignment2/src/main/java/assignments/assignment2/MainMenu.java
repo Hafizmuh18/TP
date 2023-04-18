@@ -11,8 +11,6 @@ import javax.lang.model.util.ElementScanner14;
 import assignments.assignment1.NotaGenerator;
 
 import static assignments.assignment1.NotaGenerator.*;
-import java.util.Random;
-
 
 public class MainMenu {
     //* Attribute-attribute untuk class MainMenu */

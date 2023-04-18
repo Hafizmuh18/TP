@@ -1,10 +1,13 @@
 package assignments.assignment3.user.menu;
 
 import assignments.assignment3.nota.Nota;
+import assignments.assignment3.nota.NotaManager;
 import assignments.assignment3.user.Employee;
 import assignments.assignment3.user.Member;
 
 import static assignments.assignment3.nota.NotaManager.notaList;
+
+import java.util.ArrayList;
 
 public class EmployeeSystem extends SystemCLI {
 
@@ -28,9 +31,22 @@ public class EmployeeSystem extends SystemCLI {
      */
     @Override
     protected boolean processChoice(int choice) {
-        boolean logout = false;
         // TODO:
-        return logout;
+        if(choice == 1){
+            System.out.println("Stand back! "+ loginMember.getNama() +" beginning to nyuci!");
+            for(Nota nota : NotaManager.notaList){
+                System.out.println(nota.kerjakan());
+            }
+            return false;
+        }else if(choice == 2){
+            for(Nota nota : NotaManager.notaList){
+                System.out.println(nota.getNotaStatus());
+            }
+            return false;
+        }else if(choice == 3){
+            return true;
+        }
+        return false;
     }
 
     /**

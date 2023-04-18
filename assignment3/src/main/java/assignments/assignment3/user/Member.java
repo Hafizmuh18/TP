@@ -1,5 +1,9 @@
 package assignments.assignment3.user;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
 import assignments.assignment3.nota.Nota;
 public class Member {
     protected String id;
@@ -31,6 +35,9 @@ public class Member {
      */
     public void addNota(Nota nota) {
         // TODO
+        Nota[] tempArray = Arrays.copyOf(notaList, notaList.length+1);
+        notaList = Arrays.copyOf(tempArray, tempArray.length);
+        notaList[notaList.length-1]=nota;
     }
 
     /**
@@ -41,6 +48,9 @@ public class Member {
      */
     protected boolean authenticate(String password) {
         // TODO
+        if(this.password.equals(password)){
+            return true;
+        }
         return false;
     }
 
