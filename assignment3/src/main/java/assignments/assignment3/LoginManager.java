@@ -32,6 +32,7 @@ public class LoginManager {
     }
 
     public String generateId(String inpNama, String nomorHp){
+        //* Method untuk membuat id member, sebenarnya bisa dipanggil dari tp1, tapi lebih prefer tiap tp ngga dihubungkan satu sama lain */
         String[] listNama = inpNama.split(" ");
         String nama = listNama[0].toUpperCase();
         int checkSum = 0;
@@ -41,11 +42,12 @@ public class LoginManager {
             boolean huruf = true;
             if(huruf){
                 char character = letter.charAt(0);
-                int asciiChar = character;
+                int asciiChar = (int) character;
                 if(asciiChar >= 65 && asciiChar <= 90){
                     checkSum += asciiChar - 64;
-                }else if(Character.isDigit(character)){
-                    checkSum += character;
+                }else if(asciiChar >= 48 && asciiChar <= 57){
+                    int angka = Character.getNumericValue(asciiChar);
+                    checkSum+=angka;
                 }else{
                     checkSum += 7;
                 }
@@ -78,7 +80,7 @@ public class LoginManager {
      * @return Member object yang berhasil mendaftar, return null jika gagal mendaftar.
      */
     public Member register(String nama, String noHp, String password) {
-        // TODO
+        //* Mencoba membuat akun member, jika belum ada maka mengembalikan object member itu, jika akun member itu sudah ada maka mengembalikan null */
         String id = this.generateId(nama, noHp);
         Member newMember = new Member(nama, id, password);
         if(!memberSystem.isMemberExist(id)){

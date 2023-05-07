@@ -31,19 +31,22 @@ public class EmployeeSystem extends SystemCLI {
      */
     @Override
     protected boolean processChoice(int choice) {
-        // TODO:
+        //* Method jika user employee berhasil login, maka akan tersedia 3 pilihan */
         if(choice == 1){
+            //* Mengerjakan tiap nota yang ada di notaList NotaManager */
             System.out.println("Stand back! "+ loginMember.getNama() +" beginning to nyuci!");
             for(Nota nota : NotaManager.notaList){
                 System.out.println(nota.kerjakan());
             }
             return false;
         }else if(choice == 2){
+            //* Melakukan pengecekan status untuk tiap nota yang ada pada notaList pada NotaManager */
             for(Nota nota : NotaManager.notaList){
                 System.out.println(nota.getNotaStatus());
             }
             return false;
         }else if(choice == 3){
+            //* Jika user employee logout, maka logout sama dengan true */
             return true;
         }
         return false;

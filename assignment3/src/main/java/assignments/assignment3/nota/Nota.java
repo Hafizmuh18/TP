@@ -1,6 +1,4 @@
 package assignments.assignment3.nota;
-import java.util.ArrayList;
-import java.util.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -24,7 +22,7 @@ public class Nota {
     private int hariSelesai;
 
     public Nota(Member member, int berat, String paket, String tanggal) {
-        //TODO
+        //* Contractor dari kelas Nota */
         this.member = member;
         this.berat = berat;
         this.paket = paket;
@@ -41,18 +39,19 @@ public class Nota {
             this.baseHarga = 7000;
         }
         this.hariSelesai = sisaHariPengerjaan;
-        addService(new CuciService());
+        addService(new CuciService()); //* Menambahkan service cuci yang sudah pasti ada di tiap nota */
     }
 
     public void addService(LaundryService service){
-        //TODO
+        //* Menambahkan service ke dalam array services */
         LaundryService[] tempArray = Arrays.copyOf(services, services.length+1);
         services = Arrays.copyOf(tempArray, tempArray.length);
         services[services.length-1]=service;
     }
 
     public String kerjakan(){
-        // TODO
+        //* Mengerjakan tiap service yang ada di array services secara berururan muali dari cuci -> Setrika -> Antar, jika sudah semua isDone diubah ke true */
+        //* Tambahan : Sebenarnya bisa di loop sekali aja karena udah pasti urut, ini untuk jaa-jaga aja in case arraynya ke acak + astetic(karena efektivitas kode belum dinilai wkwkkwwkw) */
         String kerjaan = "";
         for(LaundryService service:services){
             if(service instanceof CuciService){
@@ -101,14 +100,14 @@ public class Nota {
         return status;
     }
     public void toNextDay() {
-        // TODO
+        //* Mengurangkan sisa hari pengerjaan tiap kali dia next day jika nota belum selesai */
         if(!isDone){
             this.sisaHariPengerjaan -= 1;
         }
     }
 
     public long calculateHarga(){
-        // TODO
+        //* Menghitung harga akhir dengan mengalikan base harga dengan berat, lalu ditambahkan dengan harga tiap service yang diambil, lalu dikurangin jika ada kompensasi keterlambatan */
         long hargaFinal = this.baseHarga*berat;
         if(this.sisaHariPengerjaan<0){
             hargaFinal += 2000*this.sisaHariPengerjaan;
@@ -123,7 +122,7 @@ public class Nota {
     }
 
     public String getNotaStatus(){
-        // TODO
+        //* Mengembalikan status nota apakah sudah selesai apa belum */
         if(isDone){
             return "Nota "+ id +" : Sudah selesai.";
         }
@@ -131,6 +130,7 @@ public class Nota {
     }
 
     public static String getTanggalSelesai(String tanggalDiTerima, int hari){
+        //* Mencari tanggal selesai degnan menambahakan hari ke tanggal masuk */
         DateTimeFormatter formatTanggal = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate tanggalTerima = LocalDate.parse(tanggalDiTerima,formatTanggal);
         LocalDate unformatTanggalSelesai = tanggalTerima.plusDays(hari);
@@ -140,7 +140,7 @@ public class Nota {
 
     @Override
     public String toString(){
-        // TODO
+        //* Keterangan nota yang akan dicetak ketika nota di print */
         String nota = "[ID Nota = "+ this.id +"]\nID    : "+ member.getId() +"\nPaket : "+ paket +"\nHarga :\n"+ berat +" kg x "+ baseHarga +" = "+ berat*baseHarga +"\ntanggal terima  : "+ tanggalMasuk +"\ntanggal selesai : "+ getTanggalSelesai(tanggalMasuk, hariSelesai) +"\n--- SERVICE LIST ---";
         for(LaundryService service : services){
             nota = nota + "\n-" + service.getServiceName() + " @ Rp." + service.getHarga(berat);

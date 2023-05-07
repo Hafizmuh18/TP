@@ -15,7 +15,7 @@ public class Employee extends Member {
      * @param nama -> Nama lengkap dari employee
      */
     private static String generateId(String nama) {
-        // TODO
+        //* Mmembuat id untuk user employee sesuai dengan ketentuan */
         String id= "";
         String[] arrNama = nama.split(" ");
         String namaDepan = arrNama[0].toUpperCase();

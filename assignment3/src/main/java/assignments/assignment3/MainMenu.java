@@ -37,14 +37,19 @@ public class MainMenu {
         boolean exit = false;
         while (!exit) {
             displayMenu();
-            int choice = in.nextInt();
-            in.nextLine();
+            String strChoice = in.nextLine();
+            int choice = 0;
+            try{
+                choice = Integer.parseInt(strChoice);
+            }catch(NumberFormatException nfe){
+                choice = 0;
+            }
             switch (choice) {
                 case 1 -> login();
                 case 2 -> register();
                 case 3 -> toNextDay();
                 case 4 -> exit = true;
-                default -> System.out.println("Pilihan tidak valid, silakan coba lagi.");
+                default -> System.out.println("Pilihan tidak valid, silakan coba lagi.\n");
             }
         }
 
@@ -70,7 +75,6 @@ public class MainMenu {
         String noHp = in.nextLine();
         System.out.println("Masukan password Anda: ");
         String password = in.nextLine();
-
         Member registeredMember = loginManager.register(nama, noHp, password);
         if(registeredMember == null){
             System.out.printf("User dengan nama %s dan nomor hp %s sudah ada!\n", nama, noHp);
