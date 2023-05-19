@@ -8,6 +8,7 @@ import assignments.assignment3.user.Member;
 import static assignments.assignment3.nota.NotaManager.notaList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class EmployeeSystem extends SystemCLI {
 
@@ -60,5 +61,14 @@ public class EmployeeSystem extends SystemCLI {
         System.out.println("1. It's nyuci time");
         System.out.println("2. Display List Nota");
         System.out.println("3. Logout");
+    }
+
+    public void addEmployee(Member[] arrMember) {
+        //* Menambahkan member ke dalam array memberList */
+        for(Member member:arrMember){
+            Member[] tempArray = Arrays.copyOf(memberList, memberList.length+1);
+            memberList = Arrays.copyOf(tempArray, tempArray.length);
+            memberList[memberList.length-1]=member;
+        }
     }
 }

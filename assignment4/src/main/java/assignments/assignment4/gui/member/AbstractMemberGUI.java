@@ -6,7 +6,6 @@ import assignments.assignment4.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public abstract class AbstractMemberGUI extends JPanel implements Loginable{
@@ -18,7 +17,7 @@ public abstract class AbstractMemberGUI extends JPanel implements Loginable{
     public AbstractMemberGUI(SystemCLI systemCLI) {
         super(new BorderLayout());
         this.systemCLI = systemCLI;
-        // Set up welcome label
+        // Set up welcome   
         welcomeLabel = new JLabel("", SwingConstants.CENTER);
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24));
         add(welcomeLabel, BorderLayout.NORTH);
@@ -64,12 +63,7 @@ public abstract class AbstractMemberGUI extends JPanel implements Loginable{
         }
 
         JButton logoutButton = new JButton("Logout");
-        logoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MainFrame.getInstance().logout();
-            }
-        });
+        logoutButton.addActionListener(e -> MainFrame.getInstance().logout());
         buttonsPanel.add(logoutButton, gbc);
         return buttonsPanel;
     }
@@ -89,6 +83,13 @@ public abstract class AbstractMemberGUI extends JPanel implements Loginable{
      * */
     public boolean login(String id, String password) {
         // TODO
+        loggedInMember = systemCLI.authUser(id, password);
+        if(loggedInMember != null){
+            
+            welcomeLabel.setText("Welcome! "+loggedInMember.getNama());
+            loggedInAsLabel.setText("Logged in as "+id);
+            return true;
+        }
         return false;
     }
 

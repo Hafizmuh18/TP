@@ -32,6 +32,8 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
     protected JButton[] createButtons() {
         // TODO
         return new JButton[]{
+            new JButton("It's nyuci time"),
+            new JButton("Display List Nota"),
         };
     }
 
@@ -55,6 +57,16 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
      * */
     private void displayNota() {
         // TODO
+        if(NotaManager.notaList.length == 0){
+            JOptionPane.showMessageDialog(this, "Nota kosong :(", "Nota Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        String notaInfo = "";
+        for(Nota nota:NotaManager.notaList){
+            notaInfo += nota.getNotaStatus();
+            notaInfo += "\n";
+        }
+        JOptionPane.showMessageDialog(this, notaInfo, "Nota Information", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -63,5 +75,17 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
      * */
     private void cuci() {
         // TODO
+        JOptionPane.showMessageDialog(this, "Stand back! "+loggedInMember.getNama()+" beginning to nyuci!", "Nyuci Time", 1);
+        if(NotaManager.notaList.length == 0){
+            JOptionPane.showMessageDialog(this, "Nota kosong :(", "Paket Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        String notaInfo = "";
+        for(Nota nota:NotaManager.notaList){
+            notaInfo += nota.kerjakan();
+            notaInfo += "\n";
+        }
+        JOptionPane.showMessageDialog(this, notaInfo, "Paket Information", JOptionPane.INFORMATION_MESSAGE);
     }
 }
