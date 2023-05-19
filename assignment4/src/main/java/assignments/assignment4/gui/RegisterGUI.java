@@ -87,6 +87,9 @@ public class RegisterGUI extends JPanel {
      * */
     private void handleBack() {
         MainFrame.getInstance().navigateTo("HOME");
+        nameTextField.setText("");
+        phoneTextField.setText("");
+        passwordField.setText("");
     }
 
     /**
@@ -110,14 +113,15 @@ public class RegisterGUI extends JPanel {
                 return;
             }
         }
+        nameTextField.setText("");
+        phoneTextField.setText("");
+        passwordField.setText("");
         Member member = loginManager.register(nama, noHp, password);
         if(member == null){
             JOptionPane.showMessageDialog(mainPanel, "Username dengan nama "+nama+" dan nomor hp "+noHp+" sudah ada!", "Registration Vailed", 0);
             return;
         }
         JOptionPane.showMessageDialog(mainPanel, "Berhasil membuat user dengan ID "+member.getId()+"!", "Registration Successful", 1);
-        nameTextField.setText("");
-        phoneTextField.setText("");
-        passwordField.setText("");
+        
     }
 }

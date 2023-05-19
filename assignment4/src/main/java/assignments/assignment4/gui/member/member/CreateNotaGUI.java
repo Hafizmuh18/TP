@@ -173,7 +173,10 @@ public class CreateNotaGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "backButton"
      * */
     private void handleBack() {
-        // TODO
         MainFrame.getInstance().navigateTo("MEMBER");
+        paketComboBox.setSelectedItem("Express");
+        beratTextField.setText("");
+        setrikaCheckBox.setSelected(false);
+        antarCheckBox.setSelected(false);
     }
 }

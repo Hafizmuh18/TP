@@ -79,6 +79,8 @@ public class LoginGUI extends JPanel {
      * */
     private void handleBack() {
         MainFrame.getInstance().navigateTo("HOME");
+        idTextField.setText("");
+        passwordField.setText("");
     }
 
     /**
